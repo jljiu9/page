@@ -27,13 +27,14 @@ let server = http.createServer(async(req,res)=>{
             // slowMo: 10,
         });
         const page = (await browser.pages())[0];
-        await page.setViewport({width: 1920, height: 1080});
+        await page.setViewport({width: 1500, height: 1000,deviceScaleFactor:2});
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
-        await page.addStyleTag({path:'src/font.css'})
+        await page.addStyleTag({path:'src/zhoufang.css'})
         await page.evaluate(() => {
             $('*').css('font-family','cnFont')
         })
+        await page.waitForTimeout(1000)
         await page.screenshot().then(function(buffer) {
             // res.setHeader('Content-Disposition', 'attachment;filename="' + urll + '.png"')   //下载图片
             res.setHeader('Content-Type', 'image/png')
