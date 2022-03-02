@@ -30,9 +30,9 @@ let server = http.createServer(async(req,res)=>{
         await page.setViewport({width: 1500, height: 1000});
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
-        await page.addStyleTag({path:'src/zhoufang.css'})
+        await page.addStyleTag({path:'src/calibri.css'})
         await page.waitForTimeout(9000)
-await page.evaluate(() => {
+        await page.evaluate(() => {
             $('*').css('font-family','cnFont')
         })
         await page.waitForTimeout(9000)
