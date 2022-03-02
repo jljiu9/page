@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/jljiu9/page/issues"
   },
-  "homepage": "https://github.com/jljiu9/page#readme"
+  "homepage": "https://github.com/jljiu9/page#readme",
+  "dependencies": {
+    "puppeteer": "^13.4.1"
+  }
 }
