@@ -31,7 +31,7 @@ let server = http.createServer(async(req,res)=>{
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
         await page.addStyleTag({path:'src/zhoufang.css'})
-        await page.waitForTimeout(4000)
+        await page.waitForTimeout(100)
         await page.evaluate(() => {
             $('*').css('font-family','cnFont')
         })
