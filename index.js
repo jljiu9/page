@@ -1,8 +1,8 @@
 const http = require('http')
 const cl = u => console.log(u)
 const puppeteer = require('puppeteer')
-const parseUrl = require('./function')
-const dy = require('./dy')
+const parseUrl = require('./js/function')
+const dy = require('./js/dy')
 let foo = 0
 let server = http.createServer(async(req,res)=>{
     let st = 0
@@ -31,7 +31,7 @@ let server = http.createServer(async(req,res)=>{
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
         await page.addStyleTag({path:'src/zhoufang.css'})
-        await page.waitForTimeout(100)
+        // await page.waitForTimeout(100)
         await page.evaluate(() => {
             $('*').css('font-family','cnFont')
         })
@@ -49,4 +49,4 @@ let server = http.createServer(async(req,res)=>{
     // res.writeHead(200,{ 'Content-Type': 'text/plain; charset=utf-8' })
     // res.end('欢迎你啊！'+req.url.replace('/',''))
 })
-server.listen(8080,()=>cl('nihao!'))
+server.listen(8080,()=>cl('程序运行中\n...'))
