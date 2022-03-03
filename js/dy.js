@@ -11,7 +11,7 @@ const dy = async (req,res) => {
         // slowMo: 10,
     });
     const page = (await browser.pages())[0]
-    await page.setViewport({width: 1000, height: 1000})
+    await page.setViewport({width: 1200, height: 1000,deviceScaleFactor:1.5,isMobile:true})
     page.setDefaultNavigationTimeout(0)
     await page.goto('https://www.douyin.com/user/MS4wLjABAAAAGmwgghQsE6VOMgVBwtNuaNxejrYCifTgIRKH4xlxa0s')
     await page.addScriptTag({path:'src/jquery.js'})
@@ -29,6 +29,7 @@ const dy = async (req,res) => {
         await browser.close()
     })
     await page.evaluate(() => {
+        document.body.style.zoom = 1.3
         const stm = async(ms,ds) => setTimeout(ds,ms*10)
         const cl =async u => console.log(u)
         const interval = {

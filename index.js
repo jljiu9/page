@@ -27,13 +27,14 @@ let server = http.createServer(async(req,res)=>{
             // slowMo: 10,
         });
         const page = (await browser.pages())[0];
-        await page.setViewport({width: 1500, height: 1000});
+        await page.setViewport({width: 1200, height: 800, deviceScaleFactor:2, isMobile:true});
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
         await page.addStyleTag({path:'src/zhoufang.css'})
         // await page.waitForTimeout(100)
         await page.evaluate(() => {
             $('*').css('font-family','cnFont')
+            document.body.style.zoom = 1.3
         })
         await page.waitForTimeout(7000)
         await page.screenshot().then(function(buffer) {
