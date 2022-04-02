@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/jljiu9/page#readme",
   "dependencies": {
-    "puppeteer": "^13.4.1"
+    "puppeteer": "^13.5.1"
   }
 }

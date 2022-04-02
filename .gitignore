@@ -1,3 +1,10 @@
+# 自定义目录
+js/源
+js/修复
+js/test
+js/xxx
+js/backup/test
+
 # Logs
 logs
 *.log
