@@ -36,7 +36,7 @@ let server = http.createServer(async(req,res)=>{
             $('*').css('font-family','cnFont')
             document.body.style.zoom = 1.3
         })
-        await page.waitForTimeout(6000)
+        await page.waitForTimeout(7000)
         await page.screenshot().then(function(buffer) {
             // res.setHeader('Content-Disposition', 'attachment;filename="' + urll + '.png"')   //下载图片
             res.setHeader('Content-Type', 'image/png')
