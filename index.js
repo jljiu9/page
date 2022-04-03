@@ -4,12 +4,6 @@ const puppeteer = require('puppeteer')
 const parseUrl = require('./js/function')
 const dy = require('./js/dy')
 let foo = 0
-let browser
-puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    // headless: false,
-    // slowMo: 10,
-}).then(x => browser = x)
 let server = http.createServer(async(req,res)=>{
     let st = 0
     let ttime = setInterval(() => {
@@ -27,7 +21,12 @@ let server = http.createServer(async(req,res)=>{
             return
         }
         cl('正在访问：'+parseUrl(urll))
-        let page = await browser.newPage()
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            // headless: false,
+            // slowMo: 10,
+        });
+        const page = (await browser.pages())[0];
         await page.setViewport({width: 1200, height: 800, deviceScaleFactor:2, isMobile:true});
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
@@ -37,13 +36,13 @@ let server = http.createServer(async(req,res)=>{
             $('*').css('font-family','cnFont')
             document.body.style.zoom = 1.3
         })
-        await page.waitForTimeout(5000)
+        await page.waitForTimeout(6000)
         await page.screenshot().then(function(buffer) {
             // res.setHeader('Content-Disposition', 'attachment;filename="' + urll + '.png"')   //下载图片
             res.setHeader('Content-Type', 'image/png')
             res.end(buffer)
         });
-        await page.close();
+        await browser.close();
         clearInterval(ttime)
         cl('访问完成！'+'用时：'+(st*(0.01)).toFixed(2)+' s')
     }
