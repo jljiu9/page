@@ -4,6 +4,12 @@ const puppeteer = require('puppeteer')
 const parseUrl = require('./js/function')
 const dy = require('./js/dy')
 let foo = 0
+let browser
+puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    // headless: false,
+    // slowMo: 10,
+}).then(x => browser = x)
 let server = http.createServer(async(req,res)=>{
     let st = 0
     let ttime = setInterval(() => {
@@ -21,12 +27,7 @@ let server = http.createServer(async(req,res)=>{
             return
         }
         cl('正在访问：'+parseUrl(urll))
-        const browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            // headless: false,
-            // slowMo: 10,
-        });
-        const page = (await browser.pages())[0];
+        let page = await browser.newPage()
         await page.setViewport({width: 1200, height: 800, deviceScaleFactor:2, isMobile:true});
         await page.goto(parseUrl(urll));
         await page.addScriptTag({path:'src/jquery.js'})
@@ -42,7 +43,7 @@ let server = http.createServer(async(req,res)=>{
             res.setHeader('Content-Type', 'image/png')
             res.end(buffer)
         });
-        await browser.close();
+        await page.close();
         clearInterval(ttime)
         cl('访问完成！'+'用时：'+(st*(0.01)).toFixed(2)+' s')
     }
